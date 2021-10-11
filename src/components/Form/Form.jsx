@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import contactsActions from '../../redux/contacts/contacts-actions';
-import css from '../../../src/style.module.css';
+import css from '../Form/Form.module.css';
 
 export default function Form() {
   const dispatch = useDispatch();
@@ -30,13 +30,13 @@ export default function Form() {
   const handleSubmit = evt => {
     evt.preventDefault();
 
-    if (name === '' || number === '') {
-      return alert('fill out the form');
+    if (name !== '' || number !== '') {
+      dispatch(contactsActions.addContacts(name, number));
+      setName('');
+      setNumber('');
+      return;
     }
-
-    dispatch(contactsActions.addContacts(name, number));
-    setName('');
-    setNumber('');
+    return alert('fill out the form');
   };
 
   return (
@@ -83,13 +83,3 @@ Form.propTypes = {
     }).isRequired,
   ),
 };
-
-// const mapStateToProps = state => ({
-//   contacts: state.contacts,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onSubmit: (name, number) => dispatch(contactsActions.addContacts(name, number)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Form);

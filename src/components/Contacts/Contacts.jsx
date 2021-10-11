@@ -28,23 +28,8 @@ const Contacts = () => {
     </>
   );
 };
+
 export default Contacts;
-
-// const mapStateToProps = state => {
-//   const { filter, items } = state.contacts;
-
-//   const visibleContacts = getVisibleContacts(items, filter);
-
-//   return {
-//     contacts: visibleContacts,
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => ({
-//   onClick: id => dispatch(contactsActions.deleteContacts(id)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
 
 Contacts.propTypes = {
   contacts: PropTypes.arrayOf(
