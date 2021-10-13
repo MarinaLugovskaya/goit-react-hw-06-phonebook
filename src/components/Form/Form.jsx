@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import contactsActions from '../../redux/contacts/contacts-actions';
+import { getContacts } from '../../redux/contacts/contacts-selectors';
 import css from '../Form/Form.module.css';
 
 export default function Form() {
   const dispatch = useDispatch();
-
+  const contacts = useSelector(getContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -29,6 +30,14 @@ export default function Form() {
 
   const handleSubmit = evt => {
     evt.preventDefault();
+
+    const formSubmitHandler = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+
+    if (formSubmitHandler) {
+      return alert(`${name} is already exists in contact list`);
+    }
 
     if (name !== '' || number !== '') {
       dispatch(contactsActions.addContacts(name, number));
